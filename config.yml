@@ -1,0 +1,23 @@
+---
+apiVersion: v1alpha1
+sts-region: "${REGION}"
+discovery:
+  exportedTagsOnMetrics:
+    ec2:
+      - Name
+  jobs:
+    - type: ec2
+      regions:
+        - "${REGION}"
+      roles:
+        - roleArn: "${ROLE_ARN}"
+      customTags:
+        - key: job
+          value: aws_ec2
+      period: 300
+      length: 300
+      metrics:
+        - name: CPUCreditUsage
+          statistics: [Average]
+        - name: CPUCreditBalance
+          statistics: [Average]
